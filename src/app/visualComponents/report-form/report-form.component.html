@@ -1,0 +1,38 @@
+<!-- report-form.component.html -->
+<div class="container py-4 formulario-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title text-center">Creación Reportes</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="reportForm" name="reportForm" (ngSubmit)="onSubmit()" class="mt-4">
+                        <div class="mb-3">
+                            <label for="afiliacionId" class="form-label">ID de Afiliación</label>
+                            <input id="afiliacionId" formControlName="afiliacionId" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input id="nombre" formControlName="nombre" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            <input id="apellidos" formControlName="apellidos" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea id="descripcion" formControlName="descripcion" class="form-control"
+                                rows="5"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="files" class="form-label">Documentos Adjuntos</label>
+                            <input type="file" id="files" (change)="onFileChange($event)" multiple class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

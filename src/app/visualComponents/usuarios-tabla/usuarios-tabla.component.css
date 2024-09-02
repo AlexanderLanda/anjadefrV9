@@ -1,0 +1,38 @@
+/* Custom styles for estadoCuenta */
+.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.bg-warning {
+  background-color: #ffc107 !important;
+}
+
+/* Custom styles for leyenda items */
+.leyenda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+}
+
+.cuadrado {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.cuadrado.rojo {
+  background-color: #dc3545;
+}
+
+.cuadrado.amarillo {
+  background-color: #ffc107;
+}
+
+#texto-pendiente {
+  margin-right: 15px;
+}

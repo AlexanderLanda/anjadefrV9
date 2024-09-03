@@ -22,7 +22,7 @@
         "name": "Reglas de Juego 06-22",
         "type": "application/pdf",
         "path": "assets/documentos/Reglamentos deportivos/balonmano_2022.pdf",
-        "deporte": "balonmano"
+        "deporte": "Balonmano"
       },
   {
         "name": "CTA Circular Nº3",
@@ -91,7 +91,19 @@
         "type": "application/pdf",
         "path": "assets/documentos/Reglamentos deportivos/RFEDH-Reglamento-de-Disciplina-aprobadoCSD14.03.2022-CD-14.07.23.pdf",
         "deporte": "Hockey sobre Hielo"
-      }
+      },
+      {
+          "name": "Reglas del juego IFAB 2024/25",
+          "type": "application/pdf",
+          "path": "assets/documentos/Reglamentos deportivos/Cambios en las Reglas futbol 2024_25.pdf",
+          "deporte": "Futbol"
+        },
+    {
+          "name": "Cambios en las Reglas IFAB 2024/25",
+          "type": "application/pdf",
+          "path": "assets/documentos/Reglamentos deportivos/Cambios en las Reglas futbol 2024_25.pdf",
+          "deporte": "Futbol"
+        }
     ]
   }
   

@@ -9,7 +9,7 @@ import { TipoDocumentoDto } from "./TipoDocumentoDto";
 import { TipoPagoDto } from "./TipoPagosDto";
 import { UsuariosRolDto } from "./UsuariosRolDto";
 
-export interface UsuariosDto {
+export interface    UsuariosDto {
     id_user: number;
     nombre: string;
     apellidos: string;

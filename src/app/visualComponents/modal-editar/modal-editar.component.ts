@@ -26,6 +26,7 @@ import { EstadosUsuariosDto } from '../../Core/Model/EstadosUsuariosDto';
 import { EstadoUsuariosServiceImpl } from '../../Core/Service/Implements/EstadoUsuariosServiceImpl';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../../Core/Service/Implements/DataService';
+import { ConstantPool } from '@angular/compiler';
 
 @Component({
   selector: 'app-modal-editar',
@@ -94,6 +95,7 @@ export class ModalEditarComponent {
 
 
   ngOnInit() {
+    console.log("Fecha Afiiacion:" +this.data.fechaAfiliacion);
     this.registroForm = this.formBuilder.group({
       id_user: [this.data.id_user, [Validators.required]],
       apellidos: [this.data.apellidos, [Validators.required]],
@@ -118,6 +120,7 @@ export class ModalEditarComponent {
       estadoCuenta: ['', [Validators.required]],
       situacionActual: [this.data.situacionActual, [Validators.required]],
       idAfiliacion: [this.data.idAfiliacion, [Validators.required]],
+      fechaAfiliacion: [this.data.fechaAfiliacion, [Validators.required]],
     }, { validators: this.passwordMatchValidator });
     console.log('Valor de usuariorol:', this.data.usuariorol.id);
     
@@ -244,6 +247,7 @@ export class ModalEditarComponent {
 
 
   onRegistro() {
+    
     if (!this.registroForm.valid) {
       this.isLoading = true;
       this.registroForm.removeControl('confirmPassword');

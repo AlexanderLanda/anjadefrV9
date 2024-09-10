@@ -16,6 +16,7 @@ import { JuntaDirectivaComponent } from './visualComponents/junta-directiva/junt
 import { NoticiasAnjadeComponent } from './visualComponents/noticias-anjade/noticias-anjade.component';
 import { ReportFormComponent } from './visualComponents/report-form/report-form.component';
 import { ReglamentosFileGalleryComponent } from './visualComponents/reglamentos-file-gallery/reglamentos-file-gallery.component';
+import { AuthGuard } from 'src/app/Core/Service/Implements/AuthGuard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path: 'informacion/estatutos', component: EstatutosComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponentComponent },
-  { path: 'listausuarios', component: UsuariosTablaComponent },
+  { path: 'listausuarios', component: UsuariosTablaComponent, canActivate: [AuthGuard] },
   { path: 'formulario', component: FormularioComponent },
   { path: 'comisiones', component: ComisionesComponent },
   { path: 'redsys', component: RedsysComponent },

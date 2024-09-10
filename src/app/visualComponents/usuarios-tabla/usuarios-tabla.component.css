@@ -36,3 +36,6 @@
 #texto-pendiente {
   margin-right: 15px;
 }
+.filtro-card {
+  margin-top: 20px; /* Ajusta el valor según sea necesario para dejar espacio entre el navbar y el formulario */
+}

@@ -16,6 +16,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import * as XLSX from 'xlsx';
 
+import * as GENERIC_CONST from '../../constants/genericconstant';
+import { AuthService } from 'src/app/Core/Service/Implements/AuthService';
+
+
 
 
 /**
@@ -29,11 +33,13 @@ import * as XLSX from 'xlsx';
 })
 export  class UsuariosTablaComponent implements AfterViewInit {
 
+
+
   displayedColumns: string[] = ['idAfiliacion', 'apellidos', 'nombre', 'funcion', 'estadoFuncion', 'categoria', 'deporte', 'provincia', 'estado', 'rolAfiliado', 'editar'];
   listadoUsuarios: UsuariosDto[] | undefined;
   listadoUsuariosFiltrados: UsuariosDto[] | undefined;
   dataSource: MatTableDataSource<UsuariosDto>;
-
+  userlogin : UsuariosDto| undefined;
   selectedFuncion: number | undefined;
   afiliadosFunciones: AfiliadosFuncionDto[] | undefined;
 
@@ -46,12 +52,14 @@ export  class UsuariosTablaComponent implements AfterViewInit {
     private afiliadosFuncionService: AfiliadosFuncionServiceImpl,
     private dialog: MatDialog,
     private dataService: DataService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authService: AuthService
   ) {
     this.dataSource = new MatTableDataSource<UsuariosDto>([]);
   }
 
   ngOnInit() {
+    this.userlogin = this.authService.getCurrentUser();
     this.dataService.data$.subscribe(updated => {
       if (updated) {
         this.cargarListadoDeUsuarios();
@@ -107,7 +115,7 @@ export  class UsuariosTablaComponent implements AfterViewInit {
   cargarListadoDeUsuarios(){
 
     this.usuariosService.getUsuarios().subscribe(usuarios => {
-      this.listadoUsuarios = usuarios.filter(usuario => usuario.estadoCuenta.id !== 2);
+      this.listadoUsuarios = usuarios.filter(usuario => usuario.estadoCuenta.id !== GENERIC_CONST.ESTADO_USUARIO_DENEGADO && usuario.usuariorol.id !==GENERIC_CONST.USER_ADMIN_ROL);
       this.dataSource.data = this.listadoUsuarios;
       this.dataSource.paginator = this.paginator; // Asegúrate de actualizar el paginador después de cargar los datos
       this.dataSource.sort = this.sort; // Asegúrate de actualizar el ordenamiento después de cargar los datos

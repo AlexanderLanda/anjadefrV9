@@ -51,7 +51,7 @@ export class MenuNavBarComponent implements OnInit, OnDestroy {
     if (!user) {
       return false;
     }
-    const validRoles = ['presidente', 'comisionados', 'secretarias', 'administrador'];
+    const validRoles = ['presidente', 'comisionados', 'secretario(a)', 'administrador'];
     return validRoles.includes(user.usuariorol.descripcion) && user.estadoCuenta.estado === 'activo';
   }
 

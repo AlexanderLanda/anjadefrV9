@@ -16,7 +16,7 @@ export class DeporteServiceImpl implements DeporteService {
 
   constructor(private http: HttpClient) { }
   getDeportes(): Observable<DeportesDto[]> {
-    return this.http.get<DeportesDto[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl);
   }
 
   saveOrUpdate(datosFormulario: any): Observable<DeportesDto> {

@@ -32,4 +32,5 @@ export interface UsuariosDto {
     situacionActual: string;
     observaciones: string;
     idAfiliacion: string;
+    fechaAfiliacion: Date;
 }

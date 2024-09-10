@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/'
+  apiUrl: 'http://localhost:8080/',
+ // enableEruda: false
   //apiUrl: 'http://anjadeapi-production.up.railway.app/'
 };
 

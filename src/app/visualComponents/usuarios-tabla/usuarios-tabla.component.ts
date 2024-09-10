@@ -14,6 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import * as XLSX from 'xlsx';
 
 
 
@@ -174,5 +175,74 @@ export  class UsuariosTablaComponent implements AfterViewInit {
     recurse(obj, "");
     return result;
   }
-}
+  downloadExcel() {
+    if (!this.listadoUsuarios || this.listadoUsuarios.length === 0) {
+      console.error('No hay datos para exportar');
+      return;
+    }
 
+    const data = this.listadoUsuarios
+      .filter(user => user.usuariorol?.descripcion !== 'administrador')
+      .map(user => ({
+        Nombre: user.nombre,
+        Apellidos: user.apellidos,
+        'Fecha de Nacimiento': user.fechaNacimiento,
+        Dirección: user.direccion,
+        Correo: user.correo,
+        Deporte: user.deporte?.nombre || '',
+        Localidad: user.localidad|| '',
+        Provincia: user.provincia?.descripcion || '',
+        'Tipo de Documento': user.tipoDocumento?.descripcion || '',
+        Documento: user.documento,
+        'C.P': user.codigoPostal,
+        Teléfono: user.telefono,
+        'Función': user.afiliadosFuncion?.descripcion || '',
+        'Categoría': user.afiliadosCategoria?.descripcion || '',
+        'Rol de Usuario': user.usuariorol?.descripcion || '',
+        'Fecha de Afiliación': user.fechaAfiliacion,
+        'Situación Actual': user.situacionActual,
+        'Pago': user.tipoPago?.descripcion || '',
+        'ID de Afiliación': user.idAfiliacion
+      }));
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+
+    // Estilo para el encabezado
+    const headerStyle = {
+      fill: { fgColor: { rgb: "90EE90" } }, // Color verde claro
+      font: { bold: true },
+      alignment: { horizontal: "center" }
+    };
+
+    // Aplicar estilo al encabezado
+    const range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1');
+    for (let C = range.s.c; C <= range.e.c; ++C) {
+      const address = XLSX.utils.encode_col(C) + "1";
+      if (!worksheet[address]) continue;
+      worksheet[address].s = headerStyle;
+    }
+
+    // Ajustar el ancho de las columnas
+    const columnsWidth = data.reduce((width, row) => {
+      Object.keys(row).forEach((key, i) => {
+        const cellLength = row[key] ? row[key].toString().length : 10;
+        width[i] = Math.max(width[i] || 0, cellLength);
+      });
+      return width;
+    }, []);
+
+    worksheet['!cols'] = columnsWidth.map(w => ({ width: w + 2 })); // +2 para un poco de padding
+
+    const workbook: XLSX.WorkBook = { Sheets: { 'Usuarios': worksheet }, SheetNames: ['Usuarios'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    
+    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Listado_Usuarios.xlsx';
+    link.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+}

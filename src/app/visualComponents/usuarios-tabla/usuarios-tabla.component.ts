@@ -4,7 +4,7 @@ import { UsuariosServiceImpl } from '../../Core/Service/Implements/UsuariosServi
 import { AfiliadosFuncionDto } from '../../Core/Model/AfiliadosFuncionDto';
 import { AfiliadosFuncionServiceImpl } from '../../Core/Service/Implements/AfiliadosFuncionServiceImpl';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalEditarComponent } from '../modal-editar/modal-editar.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -209,12 +209,19 @@ export  class UsuariosTablaComponent implements AfterViewInit {
       return;
     }
 
+     // Función auxiliar para formatear fechas
+  const formatDate = (date: string | Date | undefined): string => {
+    if (!date) return '';
+    const d = new Date(date);
+    return d.toISOString().split('T')[0]; // Retorna solo la parte de la fecha
+  };
+
     const data = this.listadoUsuarios
       .filter(user => user.usuariorol?.descripcion !== 'administrador')
       .map(user => ({
         Nombre: user.nombre,
         Apellidos: user.apellidos,
-        'Fecha de Nacimiento': user.fechaNacimiento,
+        'Fecha de Nacimiento': formatDate(user.fechaNacimiento),
         Dirección: user.direccion,
         Correo: user.correo,
         Deporte: user.deporte?.nombre || '',
@@ -227,7 +234,7 @@ export  class UsuariosTablaComponent implements AfterViewInit {
         'Función': user.afiliadosFuncion?.descripcion || '',
         'Categoría': user.afiliadosCategoria?.descripcion || '',
         'Rol de Usuario': user.usuariorol?.descripcion || '',
-        'Fecha de Afiliación': user.fechaAfiliacion,
+        'Fecha de Afiliación': formatDate(user.fechaAfiliacion),
         'Situación Actual': user.situacionActual,
         'Pago': user.tipoPago?.descripcion || '',
         'ID de Afiliación': user.idAfiliacion

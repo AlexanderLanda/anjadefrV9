@@ -67,6 +67,7 @@ export  class UsuariosTablaComponent implements AfterViewInit {
     });
     this.cargarListadoDeUsuarios();
     this.cargarFuncionesDeAfiliadosComboBox();
+    this.dataSource.filterPredicate = this.createFilter();
   }
 
   ngAfterViewInit() {
@@ -96,10 +97,29 @@ export  class UsuariosTablaComponent implements AfterViewInit {
   
 
   
-  filtrar(event : Event){
-    const filtro = (event?.target as HTMLInputElement).value;
-    console.log(event);
-    this.dataSource.filter = filtro.trim().toLowerCase()  ; 
+  createFilter(): (data: any, filter: string) => boolean {
+    let filterFunction = function(data: any, filter: string): boolean {
+      const searchTerms = filter.toLowerCase();
+      return Object.keys(data).some((key) => {
+        if (typeof data[key] === 'object' && data[key] !== null) {
+          // Buscar en propiedades 'nombre' o 'descripcion' de objetos
+          return ['nombre', 'descripcion', 'estado'].some(prop => 
+            data[key][prop] && data[key][prop].toString().toLowerCase().includes(searchTerms)
+          );
+        } else if (typeof data[key] === 'string') {
+          return data[key].toLowerCase().includes(searchTerms);
+        } else if (data[key] !== null && data[key] !== undefined) {
+          // Para otros tipos de datos, convertir a string
+          return data[key].toString().toLowerCase().includes(searchTerms);
+        }
+        return false;
+      });
+    }
+    return filterFunction;
+  }
+  filtrar(event: Event) {
+    const filtro = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filtro.trim().toLowerCase();
   }
 
   getEstadoCuentaClass(estado: number): string {

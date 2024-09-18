@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'failure', component: FailureComponent },
   { path: 'junta', component: JuntaDirectivaComponent },
   { path: 'noticias-anjade', component: NoticiasAnjadeComponent },
-  //{ path: 'create-report', component: ReportFormComponent },
+  { path: 'create-report', component: ReportFormComponent },
   { path: 'alert-safari', component: AlertaSafariComponent },
   { path: 'reglamentos-deportivos', component: ReglamentosFileGalleryComponent },
   // Otras rutas

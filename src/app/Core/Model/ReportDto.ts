@@ -4,6 +4,8 @@ export interface ReportDto {
     nombre: string;
     apellidos: string;
     descripcion: string;
-    files: File[];
+    attachments: File[];
+    telefono: string;
+    email: string;
   }
   

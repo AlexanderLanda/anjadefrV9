@@ -19,33 +19,32 @@ export class ReportServiceImpl {
   createReport(report: ReportDto): Observable<ReportDto> {
     const formData: FormData = new FormData();
     report.attachments.forEach(file => console.log("file subidos antes de llamar backend:"+file.name))
-/*
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };*/
-    // Añade el JSON como un campo llamado 'json'
+
     formData.append('json', JSON.stringify(report));
     report.attachments.forEach(file => formData.append('files', file, file.name));
     return this.http.post<ReportDto>(`${this.apiUrl}`, formData)
       .pipe(
         catchError(this.handleError)
       );
-      /*
-    formData.append('afiliacionId', report.afiliacionId);
-    formData.append('nombre', report.nombre);
-    formData.append('apellidos', report.apellidos);
-    formData.append('descripcion', report.descripcion);
-    report.files.forEach(file => formData.append('files', file, file.name));
-    console.log(this.apiUrl)
-    return this.http.post<ReportDto>(this.apiUrl, formData);
-    */
   }
 
 
   private handleError(error: any): Observable<never> {
     console.error('Error en la solicitud:', error);
     return throwError('Hubo un error en la solicitud. Por favor, inténtelo de nuevo más tarde.');
+ 
+  }
+
+  getAllReports(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`);
+  }
+
+  getReportById(id: number): Observable<any> {
+    console.log("getReportByIDURL:"+this.apiUrl+"/"+id)
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  getAttachments(reportId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}api/v1/attachments/report/${reportId}`);
   }
 }

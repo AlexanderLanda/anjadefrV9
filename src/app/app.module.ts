@@ -21,6 +21,8 @@ import { ModalEditarComponent } from './visualComponents/modal-editar/modal-edit
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReglamentosFileGalleryComponent } from './visualComponents/reglamentos-file-gallery/reglamentos-file-gallery.component';
+import { ReportListComponent } from './visualComponents/report-list/report-list.component';
+import { ReportDetailsComponent } from './visualComponents/report-details/report-details.component';
 
 
 
@@ -37,6 +39,8 @@ import { ReglamentosFileGalleryComponent } from './visualComponents/reglamentos-
     ReportFormComponent,
     ModalEditarComponent,
     ReglamentosFileGalleryComponent,
+    ReportListComponent,
+    ReportDetailsComponent,
   ],
   imports: [
     BrowserModule,

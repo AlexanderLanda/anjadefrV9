@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportServiceImpl } from '../../Core/Service/Implements/ReportServiceImpl';
 import { ReportDto } from '../../Core/Model/ReportDto';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -13,14 +14,32 @@ import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsMod
 export class ReportFormComponent {
   reportForm: FormGroup;
   files: File[] = [];
+  formError: string = '';
+
 
   constructor(private fb: FormBuilder, private reportService: ReportServiceImpl) {
     this.reportForm = this.fb.group({
       afiliacionId: [''],
       nombre: [''],
       apellidos: [''],
-      descripcion: ['']
-    });
+      descripcion: [''],
+      email: ['', Validators.email],
+      telefono: [''],
+    }, { validator: this.customValidator });
+
+  }
+
+  customValidator(group: FormGroup) {
+    const afiliacionId = group.get('afiliacionId').value;
+    const nombre = group.get('nombre').value;
+    const email = group.get('email').value;
+    const telefono = group.get('telefono').value;
+
+    if (afiliacionId || (nombre && email) || (nombre && telefono)) {
+      return null;
+    }
+
+    return { invalidForm: true };
   }
 
   onFileChange(event: any) {
@@ -30,13 +49,31 @@ export class ReportFormComponent {
   }
 
   onSubmit() {
-    const report: ReportDto = {
-      ...this.reportForm.value,
-      files: this.files
-    };
-    this.reportService.createReport(report).subscribe(response => {
-      console.log('Report created', response);
-      // handle success, e.g., reset form, show a message, etc.
-    });
+
+    if (this.reportForm.valid) {
+
+      const report: ReportDto = {
+        ...this.reportForm.value,
+        attachments: this.files
+      };
+
+      this.reportService.createReport(report).subscribe({
+        next: (response) => {
+          console.log('Reporte enviado con éxito', response);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error al enviar el reporte', error);
+          // Aquí puedes manejar diferentes tipos de errores
+          if (error.status === 0) {
+            console.error('Ha ocurrido un error de red. Por favor, verifica tu conexión.');
+          } else {
+            console.error(`Backend retornó código ${error.status}, cuerpo era: ${error.error}`);
+          }
+        }
+      })
+    }else {
+      console.error('Por favor, complete el ID de Afiliación, o el Nombre junto con el Email o Teléfono. ');
+      alert('Por favor, complete el ID de Afiliación, o el Nombre junto con el Email o Teléfono. Es necesario que complete alguno de los datos para poder porceder con la creación del reporte.');
+    }
   }
 }

@@ -17,6 +17,8 @@ import { NoticiasAnjadeComponent } from './visualComponents/noticias-anjade/noti
 import { ReportFormComponent } from './visualComponents/report-form/report-form.component';
 import { ReglamentosFileGalleryComponent } from './visualComponents/reglamentos-file-gallery/reglamentos-file-gallery.component';
 import { AuthGuard } from 'src/app/Core/Service/Implements/AuthGuard';
+import { ReportListComponent } from './visualComponents/report-list/report-list.component';
+import { ReportDetailsComponent } from './visualComponents/report-details/report-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,7 +34,9 @@ const routes: Routes = [
   { path: 'failure', component: FailureComponent },
   { path: 'junta', component: JuntaDirectivaComponent },
   { path: 'noticias-anjade', component: NoticiasAnjadeComponent },
-  //{ path: 'create-report', component: ReportFormComponent },
+  { path: 'create-report', component: ReportFormComponent },
+  { path: 'reports', component: ReportListComponent },
+  { path: 'report-details/:id', component: ReportDetailsComponent },
   { path: 'alert-safari', component: AlertaSafariComponent },
   { path: 'reglamentos-deportivos', component: ReglamentosFileGalleryComponent },
   // Otras rutas

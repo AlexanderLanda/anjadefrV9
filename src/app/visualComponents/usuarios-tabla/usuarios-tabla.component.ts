@@ -18,6 +18,7 @@ import * as XLSX from 'xlsx';
 
 import * as GENERIC_CONST from '../../constants/genericconstant';
 import { AuthService } from 'src/app/Core/Service/Implements/AuthService';
+import { Router } from '@angular/router';
 
 
 
@@ -53,7 +54,8 @@ export  class UsuariosTablaComponent implements AfterViewInit {
     private dialog: MatDialog,
     private dataService: DataService,
     private modalService: NgbModal,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.dataSource = new MatTableDataSource<UsuariosDto>([]);
   }
@@ -278,6 +280,10 @@ export  class UsuariosTablaComponent implements AfterViewInit {
     link.download = 'Listado_Usuarios.xlsx';
     link.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  viewUserDetails(userId: number) {
+    this.router.navigate(['/user-details', userId]);
   }
 
 }

@@ -19,6 +19,7 @@ import { ReglamentosFileGalleryComponent } from './visualComponents/reglamentos-
 import { AuthGuard } from 'src/app/Core/Service/Implements/AuthGuard';
 import { ReportListComponent } from './visualComponents/report-list/report-list.component';
 import { ReportDetailsComponent } from './visualComponents/report-details/report-details.component';
+import { UserDetailsComponent } from './visualComponents/user-details/user-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'report-details/:id', component: ReportDetailsComponent },
   { path: 'alert-safari', component: AlertaSafariComponent },
   { path: 'reglamentos-deportivos', component: ReglamentosFileGalleryComponent },
+  { path: 'user-details/:id', component: UserDetailsComponent },
   // Otras rutas
   { path: '**', redirectTo: '/home' } // Ruta wildcard para manejar rutas no encontradas
 ];

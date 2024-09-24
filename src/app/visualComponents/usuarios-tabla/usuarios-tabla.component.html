@@ -27,7 +27,9 @@
               <th scope="col">Provincia</th>
               <th scope="col">Estado cuenta</th>
               <th scope="col">Rol de Afiliado</th>
+              <th scope ="col">Detalles</th>
               <th scope="col">Editar</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -43,6 +45,11 @@
               <td>{{element.provincia.descripcion}}</td>
               <td>{{element.estadoCuenta.estado}}</td>
               <td>{{element.usuariorol.descripcion}}</td>
+              <td>
+                <button (click)="viewUserDetails(element.id_user)" class="btn btn-link">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
               <td>
                 <button class="btn btn-outline-primary btn-sm" (click)="editarFila(element)">
                   <i class="bi bi-pencil"></i>

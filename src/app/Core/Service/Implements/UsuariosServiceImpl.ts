@@ -64,4 +64,8 @@ export class UsuariosServiceImpl implements UsuariosService {
     return this.http.get<boolean>(`${this.apiUserUrl}/checkNumeroAfiliacion/${numeroAfiliacion}`);
   }
 
+  getUserById(id: number): Observable<UsuariosDto> {
+    return this.http.get<UsuariosDto>(`${this.apiUserUrl}/${id}`);
+  }
+
 }

@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReglamentosFileGalleryComponent } from './visualComponents/reglamentos-file-gallery/reglamentos-file-gallery.component';
 import { ReportListComponent } from './visualComponents/report-list/report-list.component';
 import { ReportDetailsComponent } from './visualComponents/report-details/report-details.component';
+import { UserDetailsComponent } from './visualComponents/user-details/user-details.component';
 
 
 
@@ -41,6 +42,7 @@ import { ReportDetailsComponent } from './visualComponents/report-details/report
     ReglamentosFileGalleryComponent,
     ReportListComponent,
     ReportDetailsComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,

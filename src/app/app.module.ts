@@ -24,6 +24,7 @@ import { ReglamentosFileGalleryComponent } from './visualComponents/reglamentos-
 import { ReportListComponent } from './visualComponents/report-list/report-list.component';
 import { ReportDetailsComponent } from './visualComponents/report-details/report-details.component';
 import { UserDetailsComponent } from './visualComponents/user-details/user-details.component';
+import { UserCuestionarioDetailsComponent } from './visualComponents/user-cuestionario-details/user-cuestionario-details.component';
 
 
 
@@ -43,6 +44,7 @@ import { UserDetailsComponent } from './visualComponents/user-details/user-detai
     ReportListComponent,
     ReportDetailsComponent,
     UserDetailsComponent,
+    UserCuestionarioDetailsComponent,
   ],
   imports: [
     BrowserModule,

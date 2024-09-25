@@ -4,7 +4,12 @@
   </button>
   <div *ngIf="user" class="card mt-3">
     <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
       <h2 class="mb-4">Detalles del Afiliado: {{ user.nombre }} {{ user.apellidos }}</h2>
+      <button *ngIf="hasCuestionario" class="btn btn-primary" (click)="verCuestionario()">
+        Ver Cuestionario
+      </button>
+    </div>
       <div class="row g-3">
         <div class="col-md-6">
           <strong>ID de Afiliación:</strong> {{ user.idAfiliacion }}

@@ -159,7 +159,7 @@ export class RegistroComponentComponent {
     this.cargarRolesDeUsuariosComboBox();
     this.cargarProvinciasComboBox();
     this.cargarLocalidadesComboBox();
-    this.cargarCategoriasDeAfiliadosComboBox();
+    //this.cargarCategoriasDeAfiliadosComboBox();
     this.cargarFederacionesComboBox();
     this.cargarTiposDocumentacionComboBox();
 

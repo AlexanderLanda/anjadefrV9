@@ -21,6 +21,7 @@ import { ReportListComponent } from './visualComponents/report-list/report-list.
 import { ReportDetailsComponent } from './visualComponents/report-details/report-details.component';
 import { UserDetailsComponent } from './visualComponents/user-details/user-details.component';
 import { UserCuestionarioDetailsComponent } from './visualComponents/user-cuestionario-details/user-cuestionario-details.component';
+import { ReenviarPagoComponent } from './visualComponents/reenviar-pago/reenviar-pago.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'reglamentos-deportivos', component: ReglamentosFileGalleryComponent },
   { path: 'user-details/:id', component: UserDetailsComponent },
   { path: 'user-cuestionario/:id', component: UserCuestionarioDetailsComponent },
+  { path: 'reenviarPago', component: ReenviarPagoComponent },
   // Otras rutas
   { path: '**', redirectTo: '/home' } // Ruta wildcard para manejar rutas no encontradas
 ];

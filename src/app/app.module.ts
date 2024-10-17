@@ -25,6 +25,8 @@ import { ReportListComponent } from './visualComponents/report-list/report-list.
 import { ReportDetailsComponent } from './visualComponents/report-details/report-details.component';
 import { UserDetailsComponent } from './visualComponents/user-details/user-details.component';
 import { UserCuestionarioDetailsComponent } from './visualComponents/user-cuestionario-details/user-cuestionario-details.component';
+import { ReenviarPagoComponent } from './visualComponents/reenviar-pago/reenviar-pago.component';
+import { SafeHtmlPipe } from './visualComponents/safe-html.pipe';
 
 
 
@@ -45,6 +47,8 @@ import { UserCuestionarioDetailsComponent } from './visualComponents/user-cuesti
     ReportDetailsComponent,
     UserDetailsComponent,
     UserCuestionarioDetailsComponent,
+    ReenviarPagoComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     BrowserModule,

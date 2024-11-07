@@ -34,7 +34,7 @@
         </li>
         <li class="nav-item dropdown" ngbDropdown>
           <a class="nav-link dropdown-toggle" ngbDropdownToggle id="navbarDropdownSugerencias">
-            Sugerencias
+            Incidencias
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownSugerencias">
             <a ngbDropdownItem routerLink="/create-report" (click)="collapseNavbar()">Comunicación Problemas</a>
@@ -70,8 +70,9 @@
             Administración
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownAdmin">
-            <a ngbDropdownItem routerLink="/listausuarios" (click)="collapseNavbar()">Administración de afiliados</a>
-            <a ngbDropdownItem routerLink="/reports" (click)="collapseNavbar()">Administración de reportes</a>
+            <a ngbDropdownItem routerLink="/listausuarios" (click)="collapseNavbar()">Administración de Afiliados</a>
+            <a ngbDropdownItem routerLink="/reports" (click)="collapseNavbar()">Administración de Incidencias</a>
+            <a ngbDropdownItem routerLink="/crear-noticia" (click)="collapseNavbar()">Insertar Noticias</a>
           </div>
         </li>
         <li class="nav-item" *ngIf="loggedIn">

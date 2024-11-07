@@ -1,0 +1,35 @@
+<div class="container py-4 formulario-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title text-center">Crear Nueva Noticia</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="noticiaForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Título</label>
+                            <input id="titulo" formControlName="titulo" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="linkOriginal" class="form-label">Link Original</label>
+                            <input id="linkOriginal" formControlName="linkOriginal" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo de Noticia</label>
+                            <select id="tipo" formControlName="tipo" class="form-select">
+                                <option value="PARTICULAR">Anjade</option>
+                                <option value="GENERAL">Deportivas</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagenes" class="form-label">Seleccionar Imágenes</label>
+                            <input id="imagenes" (change)="onFileChange($event)" type="file" multiple accept="image/*" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Crear Noticia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

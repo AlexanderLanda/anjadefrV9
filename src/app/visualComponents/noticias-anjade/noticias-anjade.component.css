@@ -1,13 +1,22 @@
-/* Estilos CSS */
 .component-container {
-    margin-top: 80px; /* Ajusta el valor según sea necesario */
-  }
-  .carousel-inner img {
-    width: 100%;
-    height: 300px; /* Ajusta la altura según tus necesidades */
-    object-fit: cover;
-  }  
-  .noticia img {
-    width: 100%;
-    height: 300px; /* Ajusta la altura según tus necesidades */
-  }  
+  margin-top: 80px; /* Ajusta el valor según sea necesario */
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 300px; /* Ajusta la altura según tus necesidades */
+  object-fit: cover;
+}
+
+.noticia img {
+  width: 100%;
+  height: 300px; /* Ajusta la altura según tus necesidades */
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.page-link {
+  cursor: pointer;
+}

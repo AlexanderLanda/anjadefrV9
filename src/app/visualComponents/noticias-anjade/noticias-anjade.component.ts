@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticiaServiceImpl } from '../../Core/Service/Implements/NoticiaServiceImpl';
 import { Noticia } from '../../Core/Model/NoticiaDto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-noticias-anjade',
@@ -13,24 +14,31 @@ export class NoticiasAnjadeComponent implements OnInit {
   tamanioPagina = 10;
   totalPaginas = 0;
   paginas: number[] = [];
+  tipoNoticia: string = '';
 
-  constructor(private noticiaService: NoticiaServiceImpl) { }
+  constructor(private noticiaService: NoticiaServiceImpl,private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.cargarNoticias();
-    
+    this.route.data.subscribe(data => {
+      console.log('Datos de ruta:', data); // Para depuración
+      this.tipoNoticia = data['tipoNoticia'] || '';
+      console.log('Tipo de noticia:', this.tipoNoticia); // Para depuración
+      this.cargarNoticias();
+    });
+    console.log(this.tipoNoticia)
   }
 
   cargarNoticias() {
-    this.noticiaService.obtenerNoticias(this.paginaActual, this.tamanioPagina, 'PARTICULAR').subscribe(
-      response => {
-        console.log(response)
-        this.noticias = response.content;
-        this.totalPaginas = response.totalPages;
-        this.paginas = Array.from({ length: this.totalPaginas }, (_, i) => i);
-      },
-      error => console.error('Error al cargar noticias', error)
-    );
+    this.noticiaService.obtenerNoticias(this.paginaActual, this.tamanioPagina, this.tipoNoticia)
+      .subscribe(
+        (response: any) => {
+          this.noticias = response.content;
+          // Aquí puedes manejar la paginación si es necesario
+        },
+        error => {
+          console.error('Error al cargar noticias', error);
+        }
+      );
   }
 
   cambiarPagina(pagina: number) {

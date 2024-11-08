@@ -1,6 +1,7 @@
 <div class="component-container">
   <div class="container">
-      <h2 class="mt-5 mb-4">Últimas Noticias</h2>
+    <h2 class="mt-5 mb-4">{{ tipoNoticia === 'PARTICULAR' ? 'Últimas Noticias Anjade' : 'Últimas Noticias Deportivas' }}</h2>
+      
 
       <div *ngFor="let noticia of noticias" class="container py-4">
           <div class="noticia">

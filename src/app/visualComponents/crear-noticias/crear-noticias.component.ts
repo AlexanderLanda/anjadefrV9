@@ -20,36 +20,22 @@ export class CrearNoticiasComponent implements OnInit {
     this.noticiaForm = this.formBuilder.group({
       titulo: ['', Validators.required],
       linkOriginal: ['', Validators.required],
-      tipo: ['PARTICULAR', Validators.required],
+      tipo: ['', Validators.required],
+      imagenesLinks: [''] // Campo para los links de imágenes separados por comas
     });
   }
-
-  onFileChange(event: any) {
-    this.archivos = event.target.files; // Almacena los archivos seleccionados
-  }
-
   onSubmit() {
     if (this.noticiaForm.valid) {
       const noticiaData = this.noticiaForm.value;
-
-      const formData: FormData = new FormData();
-      formData.append('titulo', noticiaData.titulo);
-      formData.append('linkOriginal', noticiaData.linkOriginal);
-      formData.append('tipo', noticiaData.tipo);
-
-      // Añade cada archivo al FormData
-      for (let i = 0; i < this.archivos.length; i++) {
-        formData.append('imagenes', this.archivos[i]);
-      }
-
-      // Cambia aquí para enviar el FormData en lugar de Noticia
-      this.noticiaService.crearNoticia(formData).subscribe(
+      const imagenesArray = noticiaData.imagenesLinks.split(',').map(link => link.trim());
+      
+      this.noticiaService.crearNoticia({...noticiaData, imagenes: imagenesArray}).subscribe(
         response => {
           console.log('Noticia creada', response);
-          alert(`Noticia agregada.`);
+          // Lógica adicional después de crear la noticia
         },
         error => {
-          console.error('Error al crear noticia', error);
+          console.error('Error al crear la noticia', error);
         }
       );
     }

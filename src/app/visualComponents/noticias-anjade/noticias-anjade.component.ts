@@ -18,6 +18,7 @@ export class NoticiasAnjadeComponent implements OnInit {
 
   ngOnInit() {
     this.cargarNoticias();
+    
   }
 
   cargarNoticias() {
@@ -37,5 +38,13 @@ export class NoticiasAnjadeComponent implements OnInit {
       this.paginaActual = pagina;
       this.cargarNoticias();
     }
+  }
+
+  getImageUrl(noticia: any): string {
+    if (noticia.imagenes && noticia.imagenes.length > 0 && noticia.imagenes[0].urlImagen) {
+      // La URL ya es completa, así que la usamos directamente
+      return noticia.imagenes[0].urlImagen;
+    }
+    return 'ruta/a/imagen/por/defecto.jpg'; // Ajusta esta ruta según sea necesario
   }
 }

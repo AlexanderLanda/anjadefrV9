@@ -20,9 +20,7 @@ export class NoticiasAnjadeComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      console.log('Datos de ruta:', data); // Para depuración
       this.tipoNoticia = data['tipoNoticia'] || '';
-      console.log('Tipo de noticia:', this.tipoNoticia); // Para depuración
       this.cargarNoticias();
     });
     console.log(this.tipoNoticia)
@@ -33,6 +31,7 @@ export class NoticiasAnjadeComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.noticias = response.content;
+          console.log(this.noticias)
           // Aquí puedes manejar la paginación si es necesario
         },
         error => {
@@ -50,9 +49,28 @@ export class NoticiasAnjadeComponent implements OnInit {
 
   getImageUrl(noticia: any): string {
     if (noticia.imagenes && noticia.imagenes.length > 0 && noticia.imagenes[0].urlImagen) {
-      // La URL ya es completa, así que la usamos directamente
-      return noticia.imagenes[0].urlImagen;
+      const imagen = noticia.imagenes[0];
+      if (imagen.urlImagen) {
+        // Intenta primero con la URL original
+        return imagen.urlImagen;
+      } else if (imagen.name) {
+        // Si no hay URL original o falla, usa la imagen local
+        return `assets/imagen/noticias/${imagen.name}`;
+      }
     }
-    return 'ruta/a/imagen/por/defecto.jpg'; // Ajusta esta ruta según sea necesario
+    // Si no hay imágenes, usa una imagen por defecto
+    return 'assets/imagen/noticias/'+noticia.imagenes[0].name+'.jpg';
+  }
+
+  handleImageError(noticia: any) {
+    if (noticia.imagenes && noticia.imagenes.length > 0) {
+      const imagen = noticia.imagenes[0];
+      if (imagen.urlImagen) {
+        // Si la imagen original falla, intenta con la local
+        console.log(`La imagen ${imagen.urlImagen} no se pudo cargar. Intentando con la imagen local.`);
+        imagen.urlImagen = null;
+        // Esto forzará a getImageUrl a usar el nombre local en el próximo intento
+      }
+    }
   }
 }

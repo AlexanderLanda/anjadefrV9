@@ -1,52 +1,59 @@
 <div class="component-container">
-  <div class="container">
-    <h2 class="mt-5 mb-4">{{ tipoNoticia === 'PARTICULAR' ? 'Últimas Noticias Anjade' : 'Últimas Noticias Deportivas' }}</h2>
-      
+    <div class="container">
+        <h2 class="mt-5 mb-4">{{ tipoNoticia === 'PARTICULAR' ? 'Últimas Noticias Anjade' : 'Últimas Noticias
+            Deportivas' }}</h2>
 
-      <div *ngFor="let noticia of noticias" class="container py-4">
-          <div class="noticia">
-              <div class="row">
-                  <div class="col-md-4">
-                      <div *ngIf="noticia.imagenes.length > 1; else singleImage" [id]="'carouselNoticia' + noticia.id" class="carousel slide" data-ride="carousel">
-                          <div class="carousel-inner">
-                              <div *ngFor="let imagen of noticia.imagenes; let i = index" [class]="'carousel-item ' + (i === 0 ? 'active' : '')">
-                                  <img [src]="imagen" class="d-block w-100" [alt]="'Imagen ' + (i + 1) + ' de la noticia'">
-                              </div>
-                          </div>
-                          <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carouselNoticia' + noticia.id" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                          </button>
-                          <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carouselNoticia' + noticia.id" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                          </button>
-                      </div>
-                      <ng-template #singleImage>
-                        <img [src]="getImageUrl(noticia)" alt="Imagen de la noticia" class="img-fluid">
-                      </ng-template>
-                  </div>
-                  <div class="col-md-8">
-                      <h4>{{ noticia.titulo }}</h4>
-                      <p>{{ noticia.descripcion }}</p>
-                      <a [href]="noticia.linkOriginal" class="btn btn-primary" target="_blank">Leer más</a>
-                  </div>
-              </div>
-          </div>
-      </div>
 
-      <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-              <li class="page-item" [class.disabled]="paginaActual === 0">
-                  <a class="page-link" (click)="cambiarPagina(paginaActual - 1)" tabindex="-1">Anterior</a>
-              </li>
-              <li class="page-item" [class.active]="paginaActual === i" *ngFor="let pagina of paginas; let i = index">
-                  <a class="page-link" (click)="cambiarPagina(i)">{{ i + 1 }}</a>
-              </li>
-              <li class="page-item" [class.disabled]="paginaActual === totalPaginas - 1">
-                  <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
-              </li>
-          </ul>
-      </nav>
-  </div>
+        <div *ngFor="let noticia of noticias" class="container py-4">
+            <div class="noticia">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div *ngIf="noticia.imagenes.length > 1; else singleImage" [id]="'carouselNoticia' + noticia.id"
+                            class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div *ngFor="let imagen of noticia.imagenes; let i = index"
+                                    [class]="'carousel-item ' + (i === 0 ? 'active' : '')">
+                                    <img [src]="imagen" class="d-block w-100"
+                                        [alt]="'Imagen ' + (i + 1) + ' de la noticia'">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                [attr.data-bs-target]="'#carouselNoticia' + noticia.id" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                [attr.data-bs-target]="'#carouselNoticia' + noticia.id" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <ng-template #singleImage>
+                            <img [src]="getImageUrl(noticia)" (error)="handleImageError(noticia)"
+                                alt="Imagen de la noticia" class="img-fluid">
+                        </ng-template>
+                    </div>
+                    <div class="col-md-8">
+                        <h4>{{ noticia.titulo }}</h4>
+                        <p>{{ noticia.descripcion }}</p>
+                        <a [href]="noticia.linkOriginal" class="btn btn-primary" target="_blank">Leer más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="paginaActual === 0">
+                    <a class="page-link" (click)="cambiarPagina(paginaActual - 1)" tabindex="-1">Anterior</a>
+                </li>
+                <li class="page-item" [class.active]="paginaActual === i" *ngFor="let pagina of paginas; let i = index">
+                    <a class="page-link" (click)="cambiarPagina(i)">{{ i + 1 }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="paginaActual === totalPaginas - 1">
+                    <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>

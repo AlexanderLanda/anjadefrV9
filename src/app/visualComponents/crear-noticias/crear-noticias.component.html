@@ -6,6 +6,16 @@
                     <h5 class="card-title text-center">Crear Nueva Noticia</h5>
                 </div>
                 <div class="card-body">
+                    <div *ngIf="mensajeExito" class="alert alert-success" role="alert">
+                        {{ mensajeExito }}
+                    </div>
+
+                    <!-- Barra de carga -->
+                    <div *ngIf="cargando" class="progress mb-3">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%">
+                            Cargando...
+                        </div>
+                    </div>
                     <form [formGroup]="noticiaForm" (ngSubmit)="onSubmit()">
                         <div class="mb-3">
                             <label for="titulo" class="form-label">Título</label>

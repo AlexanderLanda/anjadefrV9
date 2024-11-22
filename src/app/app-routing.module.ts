@@ -22,6 +22,7 @@ import { ReportDetailsComponent } from './visualComponents/report-details/report
 import { UserDetailsComponent } from './visualComponents/user-details/user-details.component';
 import { UserCuestionarioDetailsComponent } from './visualComponents/user-cuestionario-details/user-cuestionario-details.component';
 import { ReenviarPagoComponent } from './visualComponents/reenviar-pago/reenviar-pago.component';
+import { CrearNoticiasComponent } from './visualComponents/crear-noticias/crear-noticias.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -36,15 +37,17 @@ const routes: Routes = [
   { path: 'success', component: SuccessComponent },
   { path: 'failure', component: FailureComponent },
   { path: 'junta', component: JuntaDirectivaComponent },
-  { path: 'noticias-anjade', component: NoticiasAnjadeComponent },
+  { path: 'noticias-anjade', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'PARTICULAR' } },
+{ path: 'noticias-deportivas', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'GENERAL' } },
   { path: 'create-report', component: ReportFormComponent },
-  { path: 'reports', component: ReportListComponent },
-  { path: 'report-details/:id', component: ReportDetailsComponent },
+  { path: 'reports', component: ReportListComponent , canActivate: [AuthGuard] },
+  { path: 'report-details/:id', component: ReportDetailsComponent, canActivate: [AuthGuard]  },
   { path: 'alert-safari', component: AlertaSafariComponent },
   { path: 'reglamentos-deportivos', component: ReglamentosFileGalleryComponent },
   { path: 'user-details/:id', component: UserDetailsComponent },
   { path: 'user-cuestionario/:id', component: UserCuestionarioDetailsComponent },
   { path: 'reenviarPago', component: ReenviarPagoComponent },
+  { path: 'crear-noticia', component: CrearNoticiasComponent, canActivate: [AuthGuard]  },
   // Otras rutas
   { path: '**', redirectTo: '/home' } // Ruta wildcard para manejar rutas no encontradas
 ];

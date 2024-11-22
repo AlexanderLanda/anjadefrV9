@@ -27,6 +27,9 @@ import { UserDetailsComponent } from './visualComponents/user-details/user-detai
 import { UserCuestionarioDetailsComponent } from './visualComponents/user-cuestionario-details/user-cuestionario-details.component';
 import { ReenviarPagoComponent } from './visualComponents/reenviar-pago/reenviar-pago.component';
 import { SafeHtmlPipe } from './visualComponents/safe-html.pipe';
+import { CrearNoticiasComponent } from './visualComponents/crear-noticias/crear-noticias.component';
+import { NoticiasAnjadeComponent } from './visualComponents/noticias-anjade/noticias-anjade.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -49,6 +52,8 @@ import { SafeHtmlPipe } from './visualComponents/safe-html.pipe';
     UserCuestionarioDetailsComponent,
     ReenviarPagoComponent,
     SafeHtmlPipe,
+    CrearNoticiasComponent,
+    NoticiasAnjadeComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,9 @@ import { SafeHtmlPipe } from './visualComponents/safe-html.pipe';
     MatDialogModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

@@ -1,3 +1,6 @@
+import { DeportesDto } from "./DeportesDto";
+import { ProvinciaDto } from "./ProvinciaDto";
+
 // report.model.ts
 export interface ReportDto {
     afiliacionId: string;
@@ -7,5 +10,7 @@ export interface ReportDto {
     attachments: File[];
     telefono: string;
     email: string;
+    provincia: ProvinciaDto;
+    deporte: DeportesDto;
   }
   

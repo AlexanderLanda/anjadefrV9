@@ -19,6 +19,8 @@ import * as XLSX from 'xlsx';
 import * as GENERIC_CONST from '../../constants/genericconstant';
 import { AuthService } from 'src/app/Core/Service/Implements/AuthService';
 import { Router } from '@angular/router';
+import { EmailModalComponent } from '../email-modal/email-modal.component';
+import { SendEmailServiceImpl } from 'src/app/Core/Service/Implements/SendEmailServiceImpl';
 
 
 
@@ -49,6 +51,7 @@ export  class UsuariosTablaComponent implements AfterViewInit {
 
   constructor(
     private usuariosService: UsuariosServiceImpl,
+    private emailService: SendEmailServiceImpl,
     private _liveAnnouncer: LiveAnnouncer,
     private afiliadosFuncionService: AfiliadosFuncionServiceImpl,
     private dialog: MatDialog,
@@ -285,5 +288,58 @@ export  class UsuariosTablaComponent implements AfterViewInit {
   viewUserDetails(userId: number) {
     this.router.navigate(['/user-details', userId]);
   }
+
+  // Método para verificar si todas las filas visibles están seleccionadas
+areAllVisibleRowsSelected(): boolean {
+  return this.getPaginatedData().every(row => row.selected);
+}
+
+
+// Método para obtener usuarios seleccionados
+getSelectedUsers(): UsuariosDto[] {
+  return this.dataSource.filteredData.filter(row => row.selected);
+}
+
+toggleSelectAll(isChecked: boolean): void {
+  const filteredData = this.dataSource.filteredData;
+  filteredData.forEach((user) => (user.selected = isChecked));
+}
+
+allRowsSelected(): boolean {
+  return this.dataSource.filteredData.every((user) => user.selected);
+}
+
+openEmailModal(): void {
+  const selectedUsers = this.dataSource.filteredData.filter((user) => user.selected);
+  if (selectedUsers.length === 0) {
+    alert('Debe seleccionar al menos un afiliado.');
+    return;
+  }
+  const modalRef = this.modalService.open(EmailModalComponent, { size: 'lg' });
+    modalRef.componentInstance.selectedUsers = selectedUsers;
+
+    modalRef.result.then((emailData) => {
+      if (emailData) {
+        this.emailService.sendEmail(emailData).subscribe({
+          next: () => alert('Correos enviados correctamente.'),
+          error: (err) => alert('Error al enviar correos: ' + err.message),
+        });
+      }
+    });
+  }
+
+sendEmailToBackend(emailData: any): void {
+  const formData = new FormData();
+  formData.append('content', emailData.content);
+  emailData.attachments.forEach((file: File, index: number) => {
+    formData.append(`attachment${index}`, file);
+  });
+  formData.append('users', JSON.stringify(emailData.users));
+
+  this.emailService.sendEmail(formData).subscribe(
+    response => console.log('Correo enviado con éxito', response),
+    error => console.error('Error al enviar el correo', error)
+  );
+}
 
 }

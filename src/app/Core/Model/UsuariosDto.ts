@@ -33,4 +33,5 @@ export interface    UsuariosDto {
     observaciones: string;
     idAfiliacion: string;
     fechaAfiliacion: Date;
+    selected?: boolean; // Propiedad para el checkbox
 }

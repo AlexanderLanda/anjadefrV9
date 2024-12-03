@@ -30,6 +30,7 @@ import { SafeHtmlPipe } from './visualComponents/safe-html.pipe';
 import { CrearNoticiasComponent } from './visualComponents/crear-noticias/crear-noticias.component';
 import { NoticiasAnjadeComponent } from './visualComponents/noticias-anjade/noticias-anjade.component';
 import { CommonModule } from '@angular/common';
+import { EmailModalComponent } from './visualComponents/email-modal/email-modal.component';
 
 
 
@@ -54,6 +55,7 @@ import { CommonModule } from '@angular/common';
     SafeHtmlPipe,
     CrearNoticiasComponent,
     NoticiasAnjadeComponent,
+    EmailModalComponent,
   ],
   imports: [
     BrowserModule,

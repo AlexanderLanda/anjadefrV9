@@ -5,7 +5,7 @@ import { AfiliadosFuncionDto } from '../../Core/Model/AfiliadosFuncionDto';
 import { AfiliadosFuncionServiceImpl } from '../../Core/Service/Implements/AfiliadosFuncionServiceImpl';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, formatDate } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ModalEditarComponent } from '../modal-editar/modal-editar.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from '../../Core/Service/Implements/DataService';
@@ -21,6 +21,7 @@ import { AuthService } from 'src/app/Core/Service/Implements/AuthService';
 import { Router } from '@angular/router';
 import { EmailModalComponent } from '../email-modal/email-modal.component';
 import { SendEmailServiceImpl } from 'src/app/Core/Service/Implements/SendEmailServiceImpl';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -45,6 +46,7 @@ export  class UsuariosTablaComponent implements AfterViewInit {
   userlogin : UsuariosDto| undefined;
   selectedFuncion: number | undefined;
   afiliadosFunciones: AfiliadosFuncionDto[] | undefined;
+  readonly PENDIENTE_DE_PAGO_ID = 3
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort | null = null;
@@ -58,7 +60,8 @@ export  class UsuariosTablaComponent implements AfterViewInit {
     private dataService: DataService,
     private modalService: NgbModal,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.dataSource = new MatTableDataSource<UsuariosDto>([]);
   }
@@ -339,6 +342,20 @@ sendEmailToBackend(emailData: any): void {
   this.emailService.sendEmail(formData).subscribe(
     response => console.log('Correo enviado con éxito', response),
     error => console.error('Error al enviar el correo', error)
+  );
+}
+
+enviarRecordatorioPago(): void {
+  this.http.post(environment.apiUrl + 'api/v1/sendPaymentReminderEmail', { 
+    estadoPendienteId: this.PENDIENTE_DE_PAGO_ID
+  }).subscribe(
+    (response) => {
+      alert('Recordatorios enviados con éxito');
+    },
+    (error) => {
+      console.error('Error al intentar enviar el recordatorio:', error);
+      alert('Hubo un error en la comunicación con el servidor');
+    }
   );
 }
 

@@ -247,7 +247,7 @@ export class ModalEditarComponent {
 
   onRegistro() {
 
-    if (!this.registroForm.valid) {
+    if (this.registroForm.valid) {
       this.isLoading = true;
       this.registroForm.removeControl('confirmPassword');
       const datosFormulario = this.registroForm.value;
@@ -255,138 +255,131 @@ export class ModalEditarComponent {
       console.info(datosFormulario)
       // Setteo de los datos de los oject foraneos de usuarios
       // Localidades
-      if (typeof this.localidades !== 'undefined') {
-        const localidadObject = this.localidades.find(loc => loc.id === datosFormulario.localidad);
-        console.info(localidadObject)
-        if (localidadObject) {
-          datosFormulario.localidad = localidadObject;
+      // Provincias
+      if (typeof this.provincias !== 'undefined') {
+        const provinciasObject = this.provincias.find(loc => loc.id === datosFormulario.provincia);
+        console.info(provinciasObject)
+        if (provinciasObject) {
+          datosFormulario.provincia = provinciasObject;
         }
-        // Provincias
-        if (typeof this.provincias !== 'undefined') {
-          const provinciasObject = this.provincias.find(loc => loc.id === datosFormulario.provincia);
-          console.info(provinciasObject)
-          if (provinciasObject) {
-            datosFormulario.provincia = provinciasObject;
-          }
-        }
-        // Deportes
-        if (typeof this.deportes !== 'undefined') {
-          const deportesObject = this.deportes.find(loc => loc.id === datosFormulario.deporte);
-          console.info(deportesObject)
-          if (deportesObject) {
-            datosFormulario.deporte = deportesObject;
-          }
-        }
-        //tipo de Documentacion
-        if (typeof this.tiposDocumentaciones !== 'undefined') {
-          const tipoDocumentacionObject = this.tiposDocumentaciones.find(loc => loc.id === datosFormulario.tipoDocumento);
-          console.info(tipoDocumentacionObject)
-          if (tipoDocumentacionObject) {
-            datosFormulario.tipoDocumento = tipoDocumentacionObject;
-          }
-        }
-        // AfiliacionFunciones
-        if (typeof this.afiliadosFunciones !== 'undefined') {
-          const afiliadosFuncionObject = this.afiliadosFunciones.find(loc => loc.id === datosFormulario.afiliadosFuncion);
-          console.info(afiliadosFuncionObject)
-          if (afiliadosFuncionObject) {
-            datosFormulario.afiliadosFuncion = afiliadosFuncionObject;
-          }
-        }
-        // forma pago
-        if (typeof this.formaPagosList !== 'undefined') {
-          const formaPagoObject = this.formaPagosList.find(loc => loc.id === datosFormulario.tipoPago);
-          console.info(formaPagoObject)
-          if (formaPagoObject) {
-            datosFormulario.tipoPago = formaPagoObject;
-          }
-        }
-        // AfiliacionCategorias
-        if (typeof this.categorias !== 'undefined') {
-          const categoriasFuncionObject = this.categorias.find(loc => loc.id === datosFormulario.afiliadosCategoria);
-          console.info(categoriasFuncionObject)
-          if (categoriasFuncionObject) {
-            datosFormulario.afiliadosCategoria = categoriasFuncionObject;
-          }
-        }
-        //asigancion de tipo de pago
-        if (typeof this.formaPagosList !== 'undefined') {
-          const tipoPagoObject = this.formaPagosList.find(loc => loc.id === datosFormulario.tipoPago);
-          console.info(tipoPagoObject)
-          if (tipoPagoObject) {
-            datosFormulario.tipoPago = tipoPagoObject;
-          }
-        }
-
-        //asigancion de tipo de documento
-        if (typeof this.tiposDocumentaciones !== 'undefined') {
-          const tipoDocumentoObject = this.tiposDocumentaciones.find(loc => loc.id === datosFormulario.tipoDocumento);
-          console.info(tipoDocumentoObject)
-          if (tipoDocumentoObject) {
-            datosFormulario.tipoDocumento = tipoDocumentoObject;
-          }
-        }
-        //Asignacion estado usuario
-        if (typeof this.estadosUsuariosList !== 'undefined') {
-          const estadoUsuarioObject = this.estadosUsuariosList.find(loc => loc.id === Number(datosFormulario.estadoCuenta));
-          console.info(estadoUsuarioObject)
-          if (estadoUsuarioObject) {
-            datosFormulario.estadoCuenta = estadoUsuarioObject;
-          }
-          else {
-            datosFormulario.estadoCuenta = this.data.estadoCuenta;
-            console.info('Datos usuarioRol por defecto:', datosFormulario.estadoCuenta)
-          }
-        }
-        //Asignacion de usuario rol 
-
-        if (typeof this.usuariosRoles !== 'undefined') {
-          const usuariosRoleObject = this.usuariosRoles.find(loc => loc.id === Number(datosFormulario.usuariorol));
-          console.info('Datos usuarioRol:', usuariosRoleObject)
-          if (usuariosRoleObject) {
-            datosFormulario.usuariorol = usuariosRoleObject;
-          }
-          else {
-            datosFormulario.usuariorol = this.data.usuariorol;
-            console.info('Datos usuarioRol por defecto:', datosFormulario.usuariorol)
-          }
-        }
-
-        //Asignacion de id_afiliacion 
-        datosFormulario.idAfiliacion = this.data.idAfiliacion;
-        console.info('Datos idAfiliacion por defecto:', datosFormulario.idAfiliacion)
-        if (datosFormulario.password === undefined) {
-          this.registroForm.removeControl('password');
-        }
-        console.info(datosFormulario)
-        this.usuariosService.saveOrUpdate(datosFormulario).subscribe(
-          response => {
-            this.isLoading = false;
-            console.log('Datos registrados con éxito:', response);
-            // Aquí puedes agregar cualquier otra lógica después de enviar los datos
-            this.usuarioRegistrado = response;
-            this.activeModal.close('Close click')
-            this.dataService.updateData();
-            console.log('Valor formulario:', this.mostrarFormulario);
-          },
-          error => {
-            console.error('Error al registrar los datos:', error);
-            // Manejo de errores
-          }
-        );
       }
-      else {
-        // El formulario no es válido, puedes mostrar un mensaje de error o realizar otra acción
-        console.error('Formulario no válido. Revise los campos.');
-        console.log('Estado del formulario:', this.registroForm);
-        console.log('Campos inválidos:', this.registroForm.controls);
-        Object.keys(this.registroForm.controls).forEach(key => {
-          const control = this.registroForm.get(key);
-          if (control?.invalid) {
-            console.error(`Campo inválido: ${key}, errores:`, control.errors);
-          }
-        });
+      // Deportes
+      if (typeof this.deportes !== 'undefined') {
+        const deportesObject = this.deportes.find(loc => loc.id === datosFormulario.deporte);
+        console.info(deportesObject)
+        if (deportesObject) {
+          datosFormulario.deporte = deportesObject;
+        }
       }
+      //tipo de Documentacion
+      if (typeof this.tiposDocumentaciones !== 'undefined') {
+        const tipoDocumentacionObject = this.tiposDocumentaciones.find(loc => loc.id === datosFormulario.tipoDocumento);
+        console.info(tipoDocumentacionObject)
+        if (tipoDocumentacionObject) {
+          datosFormulario.tipoDocumento = tipoDocumentacionObject;
+        }
+      }
+      // AfiliacionFunciones
+      if (typeof this.afiliadosFunciones !== 'undefined') {
+        const afiliadosFuncionObject = this.afiliadosFunciones.find(loc => loc.id === datosFormulario.afiliadosFuncion);
+        console.info(afiliadosFuncionObject)
+        if (afiliadosFuncionObject) {
+          datosFormulario.afiliadosFuncion = afiliadosFuncionObject;
+        }
+      }
+      // forma pago
+      if (typeof this.formaPagosList !== 'undefined') {
+        const formaPagoObject = this.formaPagosList.find(loc => loc.id === datosFormulario.tipoPago);
+        console.info(formaPagoObject)
+        if (formaPagoObject) {
+          datosFormulario.tipoPago = formaPagoObject;
+        }
+      }
+      // AfiliacionCategorias
+      if (typeof this.categorias !== 'undefined') {
+        const categoriasFuncionObject = this.categorias.find(loc => loc.id === datosFormulario.afiliadosCategoria);
+        console.info(categoriasFuncionObject)
+        if (categoriasFuncionObject) {
+          datosFormulario.afiliadosCategoria = categoriasFuncionObject;
+        }
+      }
+      //asigancion de tipo de pago
+      if (typeof this.formaPagosList !== 'undefined') {
+        const tipoPagoObject = this.formaPagosList.find(loc => loc.id === datosFormulario.tipoPago);
+        console.info(tipoPagoObject)
+        if (tipoPagoObject) {
+          datosFormulario.tipoPago = tipoPagoObject;
+        }
+      }
+
+      //asigancion de tipo de documento
+      if (typeof this.tiposDocumentaciones !== 'undefined') {
+        const tipoDocumentoObject = this.tiposDocumentaciones.find(loc => loc.id === datosFormulario.tipoDocumento);
+        console.info(tipoDocumentoObject)
+        if (tipoDocumentoObject) {
+          datosFormulario.tipoDocumento = tipoDocumentoObject;
+        }
+      }
+      //Asignacion estado usuario
+      if (typeof this.estadosUsuariosList !== 'undefined') {
+        const estadoUsuarioObject = this.estadosUsuariosList.find(loc => loc.id === Number(datosFormulario.estadoCuenta));
+        console.info(estadoUsuarioObject)
+        if (estadoUsuarioObject) {
+          datosFormulario.estadoCuenta = estadoUsuarioObject;
+        }
+        else {
+          datosFormulario.estadoCuenta = this.data.estadoCuenta;
+          console.info('Datos usuarioRol por defecto:', datosFormulario.estadoCuenta)
+        }
+      }
+      //Asignacion de usuario rol 
+
+      if (typeof this.usuariosRoles !== 'undefined') {
+        const usuariosRoleObject = this.usuariosRoles.find(loc => loc.id === Number(datosFormulario.usuariorol));
+        console.info('Datos usuarioRol:', usuariosRoleObject)
+        if (usuariosRoleObject) {
+          datosFormulario.usuariorol = usuariosRoleObject;
+        }
+        else {
+          datosFormulario.usuariorol = this.data.usuariorol;
+          console.info('Datos usuarioRol por defecto:', datosFormulario.usuariorol)
+        }
+      }
+
+      //Asignacion de id_afiliacion 
+      datosFormulario.idAfiliacion = this.data.idAfiliacion;
+      console.info('Datos idAfiliacion por defecto:', datosFormulario.idAfiliacion)
+      if (datosFormulario.password === undefined) {
+        this.registroForm.removeControl('password');
+      }
+      console.info(datosFormulario)
+      this.usuariosService.saveOrUpdate(datosFormulario).subscribe(
+        response => {
+          this.isLoading = false;
+          console.log('Datos registrados con éxito:', response);
+          // Aquí puedes agregar cualquier otra lógica después de enviar los datos
+          this.usuarioRegistrado = response;
+          this.activeModal.close('Close click')
+          this.dataService.updateData();
+          console.log('Valor formulario:', this.mostrarFormulario);
+        },
+        error => {
+          console.error('Error al registrar los datos:', error);
+          // Manejo de errores
+        }
+      );
+    }
+    else {
+      // El formulario no es válido, puedes mostrar un mensaje de error o realizar otra acción
+      console.error('Formulario no válido. Revise los campos.');
+      console.log('Estado del formulario:', this.registroForm);
+      console.log('Campos inválidos:', this.registroForm.controls);
+      Object.keys(this.registroForm.controls).forEach(key => {
+        const control = this.registroForm.get(key);
+        if (control?.invalid) {
+          console.error(`Campo inválido: ${key}, errores:`, control.errors);
+        }
+      });
     }
   }
 

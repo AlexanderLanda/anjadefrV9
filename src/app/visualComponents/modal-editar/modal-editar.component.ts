@@ -1,4 +1,4 @@
-import { Component, Inject,Input, inject } from '@angular/core';
+import { Component, Inject, Input, inject } from '@angular/core';
 import { AfiliadosFuncionServiceImpl } from '../../Core/Service/Implements/AfiliadosFuncionServiceImpl';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AfiliadosCategoriasServiceImpl } from '../../Core/Service/Implements/AfiliadosCategoriasServiceImpl';
@@ -41,14 +41,14 @@ export class ModalEditarComponent {
   registroForm: FormGroup;
   afiliadosFunciones: AfiliadosFuncionDto[] | undefined;
   usuariosRoles: UsuariosRolDto[] | undefined;
-  estadosUsuariosList: EstadosUsuariosDto[]|undefined;
+  estadosUsuariosList: EstadosUsuariosDto[] | undefined;
   deportes: DeportesDto[] | undefined;
   categorias: AfiliadosCategoriasDto[] | undefined;
   provincias: ProvinciaDto[] | undefined;
   tiposDocumentaciones: TipoDocumentoDto[] | undefined;
   localidades: LocalidadDto[] | undefined;
   federaciones: FederacionDto[] | undefined;
-  filteredLocalidades  : LocalidadDto[] | undefined;
+  filteredLocalidades: LocalidadDto[] | undefined;
   filteredfederacionesList: Observable<FederacionDto[]> | undefined;
   selected = '';
   selectedafiliadosCategoria = '';
@@ -56,19 +56,19 @@ export class ModalEditarComponent {
   selectedProvincia = '';
   selectedDeporte = '';
   selectedFuncion = '';
-  usuarioRegistrado : UsuariosDto | undefined;
-  mostrarFormulario : boolean = false;
+  usuarioRegistrado: UsuariosDto | undefined;
+  mostrarFormulario: boolean = false;
   selectedUsuariorol = '';
-  filteredDeportes :DeportesDto[] | undefined;;
+  filteredDeportes: DeportesDto[] | undefined;;
   newDeporteName = '';
   opciones: string[] = ['Alejandro', 'Alexander', 'Alejandra', 'Alicia', 'Alberto'];
-  formaPagosList = [{"id":1,"descripcion":"Targeta de Crédito"},{"id":2,"descripcion":"Bizum"},{"id":3,"descripcion":"Transferencia Bancaria"},{"id":4,"descripcion":"Caja"}];
-  filteredOptions: Observable<string[]> | undefined ;
+  formaPagosList = [{ "id": 1, "descripcion": "Targeta de Crédito" }, { "id": 2, "descripcion": "Bizum" }, { "id": 3, "descripcion": "Transferencia Bancaria" }, { "id": 4, "descripcion": "Caja" }];
+  filteredOptions: Observable<string[]> | undefined;
   selectedFormaPago = '';
   selectedSituacionActual = '';
   activo = "Activo";
   ex = "Ex";
-  selectedEstadoUsuario ='';
+  selectedEstadoUsuario = '';
   showPasswordFields: boolean = false;
   isLoading = false;
 
@@ -86,7 +86,7 @@ export class ModalEditarComponent {
     private federacionService: FederacionServiceImpl,
     private tipoDocumentacionService: TipoDocumentacionServiceImpl,
     private estadosUsuariosService: EstadoUsuariosServiceImpl,
-    private http: HttpClient, 
+    private http: HttpClient,
     private dataService: DataService,
     public activeModal: NgbActiveModal) {
     this.registroForm = this.formBuilder.group({});
@@ -95,7 +95,7 @@ export class ModalEditarComponent {
 
 
   ngOnInit() {
-    console.log("Fecha Afiiacion:" +this.data.fechaAfiliacion);
+    console.log("Fecha Afiiacion:" + this.data.fechaAfiliacion);
     this.registroForm = this.formBuilder.group({
       id_user: [this.data.id_user, [Validators.required]],
       apellidos: [this.data.apellidos, [Validators.required]],
@@ -108,11 +108,10 @@ export class ModalEditarComponent {
       localidad: [this.data.localidad, [Validators.required]],
       provincia: [this.data.provincia, [Validators.required]],
       correo: [this.data.correo, [Validators.required, Validators.email]],
-      telefono: [this.data.telefono, [Validators.required,Validators.pattern('[0-9]*'), Validators.maxLength(9), Validators.minLength(9)]],
+      telefono: [this.data.telefono, [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(9), Validators.minLength(9)]],
       deporte: [this.data.deporte, [Validators.required]],
       afiliadosFuncion: [this.data.afiliadosFuncion, [Validators.required]],
       afiliadosCategoria: [this.data.afiliadosCategoria, [Validators.required]],
-      federacion: [this.data.federacion, [Validators.required]],
       password: [this.data.password, [Validators.required, Validators.minLength(6)]],
       confirmPassword: [this.data.password, [Validators.required, Validators.minLength(6)]],
       usuariorol: ['', [Validators.required]],
@@ -123,7 +122,7 @@ export class ModalEditarComponent {
       fechaAfiliacion: [this.data.fechaAfiliacion, [Validators.required]],
     }, { validators: this.passwordMatchValidator });
     console.log('Valor de usuariorol:', this.data.usuariorol.id);
-    
+
     this.cargarFuncionesDeAfiliadosComboBox();
     this.cargarDeportesComboBox();
     this.cargarRolesDeUsuariosComboBox();
@@ -133,22 +132,22 @@ export class ModalEditarComponent {
     this.cargarFederacionesComboBox();
     this.cargarTiposDocumentacionComboBox();
     this.cargarEstadosUsuariosComboBox();
-    this.filteredDeportes = this.deportes?.slice(); 
+    this.filteredDeportes = this.deportes?.slice();
     this.registroForm.patchValue({
       usuariorol: this.data.usuariorol?.id,
       estadoCuenta: this.data.estadoCuenta?.id,
     });
     this.checkRoleAndStatus();
-    
+
   }
 
   checkRoleAndStatus() {
     const selectedRole = this.registroForm.get('usuariorol')?.value;
     const selectedStatus = this.registroForm.get('estadoCuenta')?.value;
-     console.log("rol",selectedRole)
-     console.log("estado",selectedStatus)
+    console.log("rol", selectedRole)
+    console.log("estado", selectedStatus)
     // Define the IDs of the roles that should enable the password fields
-    const rolesRequiringPassword: string | any[] = [2,4,6,7];//Administrador, comisionado, presidente secretaria, presidente
+    const rolesRequiringPassword: string | any[] = [2, 4, 6, 7];//Administrador, comisionado, presidente secretaria, presidente
     const activeStatus = 1; // Assuming 'activo' status has ID 1
 
     this.showPasswordFields = rolesRequiringPassword.includes(selectedRole) && selectedStatus === activeStatus;
@@ -247,7 +246,7 @@ export class ModalEditarComponent {
 
 
   onRegistro() {
-    
+
     if (!this.registroForm.valid) {
       this.isLoading = true;
       this.registroForm.removeControl('confirmPassword');
@@ -279,7 +278,7 @@ export class ModalEditarComponent {
           }
         }
         //tipo de Documentacion
-        if (typeof this.tiposDocumentaciones!== 'undefined') {
+        if (typeof this.tiposDocumentaciones !== 'undefined') {
           const tipoDocumentacionObject = this.tiposDocumentaciones.find(loc => loc.id === datosFormulario.tipoDocumento);
           console.info(tipoDocumentacionObject)
           if (tipoDocumentacionObject) {
@@ -319,8 +318,8 @@ export class ModalEditarComponent {
           }
         }
 
-         //asigancion de tipo de documento
-         if (typeof this.tiposDocumentaciones !== 'undefined') {
+        //asigancion de tipo de documento
+        if (typeof this.tiposDocumentaciones !== 'undefined') {
           const tipoDocumentoObject = this.tiposDocumentaciones.find(loc => loc.id === datosFormulario.tipoDocumento);
           console.info(tipoDocumentoObject)
           if (tipoDocumentoObject) {
@@ -334,29 +333,29 @@ export class ModalEditarComponent {
           if (estadoUsuarioObject) {
             datosFormulario.estadoCuenta = estadoUsuarioObject;
           }
-          else{
+          else {
             datosFormulario.estadoCuenta = this.data.estadoCuenta;
-            console.info('Datos usuarioRol por defecto:',datosFormulario.estadoCuenta)
+            console.info('Datos usuarioRol por defecto:', datosFormulario.estadoCuenta)
           }
         }
         //Asignacion de usuario rol 
 
         if (typeof this.usuariosRoles !== 'undefined') {
           const usuariosRoleObject = this.usuariosRoles.find(loc => loc.id === Number(datosFormulario.usuariorol));
-          console.info('Datos usuarioRol:',usuariosRoleObject)
+          console.info('Datos usuarioRol:', usuariosRoleObject)
           if (usuariosRoleObject) {
             datosFormulario.usuariorol = usuariosRoleObject;
           }
-          else{
+          else {
             datosFormulario.usuariorol = this.data.usuariorol;
-            console.info('Datos usuarioRol por defecto:',datosFormulario.usuariorol)
+            console.info('Datos usuarioRol por defecto:', datosFormulario.usuariorol)
           }
         }
 
         //Asignacion de id_afiliacion 
         datosFormulario.idAfiliacion = this.data.idAfiliacion;
-        console.info('Datos idAfiliacion por defecto:',datosFormulario.idAfiliacion)
-        if(datosFormulario.password === undefined){
+        console.info('Datos idAfiliacion por defecto:', datosFormulario.idAfiliacion)
+        if (datosFormulario.password === undefined) {
           this.registroForm.removeControl('password');
         }
         console.info(datosFormulario)
@@ -365,10 +364,10 @@ export class ModalEditarComponent {
             this.isLoading = false;
             console.log('Datos registrados con éxito:', response);
             // Aquí puedes agregar cualquier otra lógica después de enviar los datos
-           this.usuarioRegistrado = response;
-           this.activeModal.close('Close click')
-           this.dataService.updateData();
-            console.log('Valor formulario:', this.mostrarFormulario );
+            this.usuarioRegistrado = response;
+            this.activeModal.close('Close click')
+            this.dataService.updateData();
+            console.log('Valor formulario:', this.mostrarFormulario);
           },
           error => {
             console.error('Error al registrar los datos:', error);
@@ -379,6 +378,14 @@ export class ModalEditarComponent {
       else {
         // El formulario no es válido, puedes mostrar un mensaje de error o realizar otra acción
         console.error('Formulario no válido. Revise los campos.');
+        console.log('Estado del formulario:', this.registroForm);
+        console.log('Campos inválidos:', this.registroForm.controls);
+        Object.keys(this.registroForm.controls).forEach(key => {
+          const control = this.registroForm.get(key);
+          if (control?.invalid) {
+            console.error(`Campo inválido: ${key}, errores:`, control.errors);
+          }
+        });
       }
     }
   }
@@ -395,7 +402,7 @@ export class ModalEditarComponent {
     this.filteredLocalidades = this.localidades?.filter(localidad => localidad.idProvincia.id === provinciaId);
   }
 
-  
+
 
   filterDeportes(value: string) {
     if (value) {

@@ -349,8 +349,12 @@ enviarRecordatorioPago(): void {
   this.http.post(environment.apiUrl + 'api/v1/sendPaymentReminderEmail', { 
     estadoPendienteId: this.PENDIENTE_DE_PAGO_ID
   }).subscribe(
-    (response) => {
-      alert('Recordatorios enviados con éxito');
+    (response: any) => {
+      if (response && response.error === false) {
+        alert(response.message || 'Recordatorios enviados con éxito');
+      } else {
+        alert('Hubo un problema al enviar los recordatorios');
+      }
     },
     (error) => {
       console.error('Error al intentar enviar el recordatorio:', error);

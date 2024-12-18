@@ -39,21 +39,48 @@
                         <a [href]="noticia.linkOriginal" class="btn btn-primary" target="_blank">Leer más</a>
                     </div>
                 </div>
+
+
+                <!-- Sección de Comentarios: Solo para noticias de tipo INCIDENCIAS -->
+
+
+                <div *ngIf="tipoNoticia === 'INCIDENCIAS'" class="card-footer">
+                    <div *ngIf="noticia.ultimoComentario">
+                        <p><strong>Último comentario:</strong> {{ noticia.ultimoComentario.texto }}</p>
+                    </div>
+
+                    <button class="btn btn-sm btn-primary" (click)="mostrarComentarios(noticia)">Ver todos los
+                        comentarios</button>
+                    <button class="btn btn-sm btn-secondary" (click)="toggleComentarioForm(noticia)">Agregar
+                        comentario</button>
+
+                    <!-- Formulario para agregar comentarios -->
+                    <div *ngIf="noticia.mostrarFormulario" class="mt-3">
+                        <textarea [(ngModel)]="comentarioTexto" class="form-control" rows="3"
+                            placeholder="Escribe tu comentario aquí"></textarea>
+                        <div *ngIf="!isUserLoggedIn" class="mt-2">
+                            <input [(ngModel)]="idAfiliacion" class="form-control"
+                                placeholder="Número de afiliación" />
+                        </div>
+                        <button class="btn btn-sm btn-success mt-2" (click)="agregarComentario(noticia.id)">Enviar
+                            comentario</button>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" [class.disabled]="paginaActual === 0">
-                    <a class="page-link" (click)="cambiarPagina(paginaActual - 1)" tabindex="-1">Anterior</a>
-                </li>
-                <li class="page-item" [class.active]="paginaActual === i" *ngFor="let pagina of paginas; let i = index">
-                    <a class="page-link" (click)="cambiarPagina(i)">{{ i + 1 }}</a>
-                </li>
-                <li class="page-item" [class.disabled]="paginaActual === totalPaginas - 1">
-                    <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
-                </li>
-            </ul>
-        </nav>
     </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="paginaActual === 0">
+                <a class="page-link" (click)="cambiarPagina(paginaActual - 1)" tabindex="-1">Anterior</a>
+            </li>
+            <li class="page-item" [class.active]="paginaActual === i" *ngFor="let pagina of paginas; let i = index">
+                <a class="page-link" (click)="cambiarPagina(i)">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="paginaActual === totalPaginas - 1">
+                <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
 </div>

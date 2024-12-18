@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Comentarios</h2>
+
+<div mat-dialog-content>
+  <div *ngIf="data.comentarios.length > 0; else noComments">
+    <div *ngFor="let comentario of data.comentarios | orderBy: 'fechaComentario'">
+      <div class="comentario">
+        <div class="comentario-header">
+          <span class="idAfiliacion">{{comentario.idAfiliacion}}</span>
+          <span class="fechaComentario">{{comentario.fechaComentario | date:'short'}}</span>
+        </div>
+        <div class="comentario-texto">
+          {{comentario.texto}}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noComments>
+    <p>No hay comentarios para esta publicación.</p>
+  </ng-template>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cerrar</button>
+</div>

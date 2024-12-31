@@ -126,5 +126,18 @@
     #descripcionSiglas h1 {
         font-size: 1.5rem; /* Ajustar el tamaño del título principal en tablets */
     }
+
+
 }
+/*MODAL NAVIDAD*/
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  .modal-body img {
+    max-width: 100%;
+    height: auto;
+  }
+  
   

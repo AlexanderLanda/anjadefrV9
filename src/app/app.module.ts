@@ -31,6 +31,10 @@ import { CrearNoticiasComponent } from './visualComponents/crear-noticias/crear-
 import { NoticiasAnjadeComponent } from './visualComponents/noticias-anjade/noticias-anjade.component';
 import { CommonModule } from '@angular/common';
 import { EmailModalComponent } from './visualComponents/email-modal/email-modal.component';
+import { ComentariosModalComponent } from './visualComponents/comentarios-modal/comentarios-modal.component';
+import { OrderByPipe } from './visualComponents/order-by.pipe';
+import { ChristmasModalContentComponent } from './visualComponents/christmas-modal-content.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -56,6 +60,9 @@ import { EmailModalComponent } from './visualComponents/email-modal/email-modal.
     CrearNoticiasComponent,
     NoticiasAnjadeComponent,
     EmailModalComponent,
+    ComentariosModalComponent,
+    OrderByPipe,
+    ChristmasModalContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,9 +77,11 @@ import { EmailModalComponent } from './visualComponents/email-modal/email-modal.
     BrowserAnimationsModule,
     FormsModule,
     CommonModule,
+    MatProgressSpinnerModule,  
 
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ChristmasModalContentComponent], 
 })
 export class AppModule { }

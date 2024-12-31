@@ -39,6 +39,7 @@ const routes: Routes = [
   { path: 'junta', component: JuntaDirectivaComponent },
   { path: 'noticias-anjade', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'PARTICULAR' } },
 { path: 'noticias-deportivas', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'GENERAL' } },
+{ path: 'noticias-incidencias', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'INCIDENCIAS' } },
   { path: 'create-report', component: ReportFormComponent },
   { path: 'reports', component: ReportListComponent , canActivate: [AuthGuard] },
   { path: 'report-details/:id', component: ReportDetailsComponent, canActivate: [AuthGuard]  },

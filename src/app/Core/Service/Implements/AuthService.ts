@@ -78,4 +78,16 @@ export class AuthService {
     console.error(errorMessage);
     return throwError(errorMessage);
   }
+
+  isUserLoggedIn(): boolean {
+    // Esto puede depender de cómo gestionas la sesión, por ejemplo, en LocalStorage
+    const user = localStorage.getItem('currentUser');
+    return user ? true : false;
+  }
+
+  // Obtener el idAfiliacion del usuario logueado
+  getIdAfiliacion(): string {
+    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    return user?.idAfiliacion || ''; // Suponiendo que tienes un idAfiliacion en el objeto de usuario
+  }
 }

@@ -67,7 +67,9 @@ export class UsuariosServiceImpl implements UsuariosService {
   getUserById(id: number): Observable<UsuariosDto> {
     return this.http.get<UsuariosDto>(`${this.apiUserUrl}/${id}`);
   }
-
+  getNameUserById(id: String): Observable<String> {
+    return this.http.get<String>(`${this.apiUserUrl}/getname/${id}`);
+  }
   
 
 }

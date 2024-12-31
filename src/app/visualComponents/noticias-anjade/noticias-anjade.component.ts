@@ -112,7 +112,7 @@ export class NoticiasAnjadeComponent implements OnInit {
     noticia.mostrarFormulario = !noticia.mostrarFormulario;
   }
 
-  agregarComentario(idNoticia: number) {
+  agregarComentario(noticia: Noticia) {
     // Validar que el comentario no está vacío y el idAfiliacion esté presente si el usuario no está logueado
     if (!this.comentarioTexto || (this.comentarioTexto.trim() === '')) {
       alert("El comentario es obligatorio.");
@@ -129,13 +129,15 @@ export class NoticiasAnjadeComponent implements OnInit {
       idAfiliacion: this.isUserLoggedIn ? this.idAfiliacion : this.idAfiliacion
     };
  
-    console.log("NOTICIA ID: "+idNoticia)
+    console.log("NOTICIA ID: "+noticia.id)
     // Llamar al servicio para agregar el comentario
-    this.noticiaService.agregarComentario(idNoticia, comentario).subscribe(
+    this.noticiaService.agregarComentario(noticia.id, comentario).subscribe(
       response => {
+        noticia.mostrarFormulario = !noticia.mostrarFormulario;
         console.log('Comentario agregado:', response);
         this.comentarioTexto = ''; // Limpiar el comentario después de agregarlo
         this.idAfiliacion = ''; // Limpiar idAfiliacion si es necesario
+        window.location.reload();
       },
       error => {
         console.error('Error al agregar comentario', error);

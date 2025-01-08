@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponentComponent },
   { path: 'listausuarios', component: UsuariosTablaComponent, canActivate: [AuthGuard] },
   { path: 'formulario', component: FormularioComponent },
-  { path: 'comisiones', component: ComisionesComponent },
+ // { path: 'comisiones', component: ComisionesComponent },
   { path: 'redsys', component: RedsysComponent },
   { path: 'success', component: SuccessComponent },
   { path: 'failure', component: FailureComponent },

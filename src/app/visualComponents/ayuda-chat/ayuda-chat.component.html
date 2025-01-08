@@ -1,0 +1,23 @@
+<!-- Botón flotante de ayuda -->
+<div  *ngIf="ayudas.length > 0" id="help-button" (click)="toggleChatbot()">
+    <i class="fa fa-question-circle"></i> 
+  </div>
+  
+  <!-- Contenedor del chatbot -->
+  <div id="chatbot-container" *ngIf="isChatbotOpen">
+    <div id="chatbot-header">
+      <span>Centro de Ayuda</span>
+      <button (click)="toggleChatbot()">X</button>
+    </div>
+    <div id="chatbot-body">
+      <ul>
+        <li *ngFor="let question of ayudas" (click)="selectQuestion(question)">
+          {{ question.pregunta }}
+        </li>
+      </ul>
+      <div *ngIf="selectedAnswer" class="answer">
+        <p>{{ selectedAnswer }}</p>
+      </div>
+    </div>
+  </div>
+  

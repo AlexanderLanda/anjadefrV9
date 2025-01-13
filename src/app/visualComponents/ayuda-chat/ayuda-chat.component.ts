@@ -57,6 +57,7 @@ export class AyudaChatComponent implements OnInit {
       },
       (error) => {
         console.error('Error al cargar las ayudas:', error);
+        this.ayudas = []; // En caso de error, mantenemos el arreglo vacío
       }
     );
   }

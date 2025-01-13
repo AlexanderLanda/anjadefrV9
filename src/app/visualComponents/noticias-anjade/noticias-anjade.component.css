@@ -6,11 +6,15 @@
   width: 100%;
   height: 300px; /* Ajusta la altura según tus necesidades */
   object-fit: cover;
+  border-radius: 15px; /* Ajusta el valor según la redondez que desees */
+  overflow: hidden; /* Asegura que las esquinas queden recortadas */
 }
 
 .noticia img {
   width: 100%;
   height: 300px; /* Ajusta la altura según tus necesidades */
+  border-radius: 15px; /* Ajusta el valor según la redondez que desees */
+  overflow: hidden; /* Asegura que las esquinas queden recortadas */
 }
 
 .pagination {
@@ -24,3 +28,12 @@
 .comentario{
   margin-top: 10px;
 }
+
+.noticia {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Combina con el borde redondeado */
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #fff; /* Agrega un fondo blanco para destacar */
+}
+

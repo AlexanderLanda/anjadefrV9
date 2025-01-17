@@ -32,22 +32,17 @@ export  class LoginComponent {
   onLogin() {
     if (this.loginForm.valid) {
       const { idAfiliacion, password } = this.loginForm.value;
-      this.authService.login(idAfiliacion, password).subscribe(
-        (res: { success: any; message: any; }) => {
-          // Manejar la respuesta de autenticación
-          if (res.success) {
-            // Redirigir a la página principal o a otra página deseada
-            this.router.navigate(['/']);
-          } else {
-            // Mostrar un mensaje de error
-            alert(res.message);
+      this.authService.login(idAfiliacion, password).subscribe({
+        next: (response) => {
+          if (response.success) {
+            // Redirige al usuario según su rol
+            this.router.navigate([response.redirectUrl]);
           }
         },
-        (err) => {
-          // Manejar errores
-          alert('Error de autenticación');
-        }
-      );
+        error: (error) => {
+          alert("Error de autenticación");
+        },
+      });
     }
   }
 

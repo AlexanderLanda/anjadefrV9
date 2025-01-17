@@ -37,6 +37,7 @@ import { ChristmasModalContentComponent } from './visualComponents/christmas-mod
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AyudaChatComponent } from './visualComponents/ayuda-chat/ayuda-chat.component';
 import { NoticiasGridComponent } from './visualComponents/noticias-grid/noticias-grid.component';
+import { ForbbidenComponent } from './visualComponents/forbbiden/forbbiden.component';
 
 
 
@@ -69,6 +70,7 @@ import { NoticiasGridComponent } from './visualComponents/noticias-grid/noticias
     AyudaChatComponent,
     NoticiasGridComponent,
     NoticiasGridComponent,
+    ForbbidenComponent,
   ],
   imports: [
     BrowserModule,

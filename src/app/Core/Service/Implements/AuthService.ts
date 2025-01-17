@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { UsuariosDto } from '../../Model/UsuariosDto';
 import { environment } from '../../../../environments/environment';
+import { DefaultRedirect, RolePermissions } from '../../configuracion/permissions';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthService {
   private apiUrl = environment.apiUrl + 'api/v1/auth/login';
   private loggedIn = new BehaviorSubject<boolean>(false);
   private isAdmin = new BehaviorSubject<boolean>(false);
+
 
   constructor(private http: HttpClient) {
     this.checkAuthStatus();
@@ -23,8 +25,10 @@ export class AuthService {
         if (response && this.isValidUser(response)) {
           localStorage.setItem('currentUser', JSON.stringify(response));
           this.loggedIn.next(true);
-          this.isAdmin.next(true);
-          return { success: true };
+          this.isAdmin.next(this.isValidUser(response));
+          const role = response.usuariorol.descripcion; // Obtén el rol del usuario
+          const redirectUrl = DefaultRedirect[role] || '/dashboard'; // Obtén la URL de redirección según el rol
+          return { success: true, role: response.usuariorol.descripcion, redirectUrl  };
         } else {
           throw new Error('Credenciales inválidas o usuario no autorizado');
         }
@@ -34,7 +38,7 @@ export class AuthService {
   }
 
   private isValidUser(user: any): boolean {
-    const validRoles = ['presidente', 'comisionados', 'secretario(a)', 'administrador'];
+    const validRoles = ['presidente', 'comisionados', 'secretario(a)', 'administrador', 'abogados'];
     return validRoles.includes(user.usuariorol.descripcion) && user.estadoCuenta.estado === 'Aprobado';
   }
 
@@ -90,4 +94,14 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
     return user?.idAfiliacion || ''; // Suponiendo que tienes un idAfiliacion en el objeto de usuario
   }
+
+  getUserRole(): string {
+    const user = this.getCurrentUser();
+    return user ? user.usuariorol.descripcion : '';
+  }
+  hasPermission(module: string): boolean {
+    const userRole = this.getUserRole();
+    return RolePermissions[userRole]?.includes(module) || false;
+  }
+  
 }

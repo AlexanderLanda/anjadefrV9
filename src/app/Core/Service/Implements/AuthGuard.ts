@@ -1,6 +1,6 @@
 // auth.guard.ts
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './AuthService';
 
 @Injectable({
@@ -9,12 +9,16 @@ import { AuthService } from './AuthService';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): boolean {
-    if (this.authService.getCurrentUser()) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const userRole = this.authService.getUserRole();
+    const allowedRoles = route.data['roles'] as string[]; // Los roles permitidos definidos en las rutas
+
+    if (this.authService.isUserLoggedIn() && allowedRoles.includes(userRole)) {
+      return true; // Permitir acceso
     }
+
+    // Redirigir si no tiene acceso
+    this.router.navigate(['/forbidden']); // Ruta de acceso denegado
+    return false;
   }
 }

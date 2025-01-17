@@ -24,6 +24,7 @@ import { UserCuestionarioDetailsComponent } from './visualComponents/user-cuesti
 import { ReenviarPagoComponent } from './visualComponents/reenviar-pago/reenviar-pago.component';
 import { CrearNoticiasComponent } from './visualComponents/crear-noticias/crear-noticias.component';
 import { NoticiasGridComponent } from './visualComponents/noticias-grid/noticias-grid.component';
+import { ForbbidenComponent } from './visualComponents/forbbiden/forbbiden.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'informacion/estatutos', component: EstatutosComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponentComponent },
-  { path: 'listausuarios', component: UsuariosTablaComponent, canActivate: [AuthGuard] },
+  { path: 'listausuarios', component: UsuariosTablaComponent, canActivate: [AuthGuard],
+    data: { roles: ['presidente', 'comisionados', 'administrador'] }},
   { path: 'formulario', component: FormularioComponent },
  // { path: 'comisiones', component: ComisionesComponent },
   { path: 'redsys', component: RedsysComponent },
@@ -42,14 +44,18 @@ const routes: Routes = [
 { path: 'noticias-deportivas', component: NoticiasGridComponent, data: { tipoNoticia: 'GENERAL' } },
 { path: 'noticias-incidencias', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'INCIDENCIAS' } },
   { path: 'create-report', component: ReportFormComponent },
-  { path: 'reports', component: ReportListComponent , canActivate: [AuthGuard] },
-  { path: 'report-details/:id', component: ReportDetailsComponent, canActivate: [AuthGuard]  },
+  { path: 'reports', component: ReportListComponent , canActivate: [AuthGuard],
+    data: { roles: ['presidente', 'comisionados', 'secretario', 'administrador', 'abogados'] }},
+  { path: 'report-details/:id', component: ReportDetailsComponent, canActivate: [AuthGuard],
+    data: { roles: ['presidente', 'comisionados', 'secretario', 'administrador', 'abogados'] }},
   { path: 'alert-safari', component: AlertaSafariComponent },
   { path: 'reglamentos-deportivos', component: ReglamentosFileGalleryComponent },
   { path: 'user-details/:id', component: UserDetailsComponent },
   { path: 'user-cuestionario/:id', component: UserCuestionarioDetailsComponent },
   { path: 'reenviarPago', component: ReenviarPagoComponent },
-  { path: 'crear-noticia', component: CrearNoticiasComponent, canActivate: [AuthGuard]  },
+  { path: 'crear-noticia', component: CrearNoticiasComponent, canActivate: [AuthGuard],
+    data: { roles: ['presidente', 'comisionados', 'secretario', 'administrador', 'abogados'] }},
+    { path: 'forbidden', component: ForbbidenComponent }, // Ruta para acceso denegado
   // Otras rutas
   { path: '**', redirectTo: '/home' } // Ruta wildcard para manejar rutas no encontradas
 ];

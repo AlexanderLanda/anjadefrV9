@@ -36,6 +36,7 @@ import { OrderByPipe } from './visualComponents/order-by.pipe';
 import { ChristmasModalContentComponent } from './visualComponents/christmas-modal-content.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AyudaChatComponent } from './visualComponents/ayuda-chat/ayuda-chat.component';
+import { NoticiasGridComponent } from './visualComponents/noticias-grid/noticias-grid.component';
 
 
 
@@ -66,6 +67,8 @@ import { AyudaChatComponent } from './visualComponents/ayuda-chat/ayuda-chat.com
     ChristmasModalContentComponent,
     AyudaChatComponent,
     AyudaChatComponent,
+    NoticiasGridComponent,
+    NoticiasGridComponent,
   ],
   imports: [
     BrowserModule,

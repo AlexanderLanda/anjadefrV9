@@ -41,9 +41,13 @@
                         </ng-template>
                     </div>
                     <div class="col-md-8">
-                        <h3>{{ noticia.titulo }}</h3>
+                        <h3 class="noticia-titulo">
+                            <a [href]="noticia.linkOriginal" target="_blank">{{ noticia.titulo }}</a>
+                          </h3>
                         <p>{{ noticia.descripcion }}</p>
-                        <a [href]="noticia.linkOriginal" class="btn btn-primary" target="_blank">Leer más</a>
+                        <div class="noticia-footer">
+                            <span class="fecha-noticia">{{ noticia.fechaInsercion | date: 'longDate' }}</span>
+                          </div>
                         <div *ngIf="tipoNoticia === 'INCIDENCIAS'" class="card-footer">
                             <div style="border: 1px solid #ccc; border-radius: 8px; padding: 16px; position: relative; max-width: 100%; margin-top: 20px;">
                                 <div style="position: absolute; top: -12px; left: 16px; background-color: white; padding: 0 8px; font-weight: bold; color: #333;">

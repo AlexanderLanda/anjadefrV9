@@ -23,6 +23,7 @@ import { UserDetailsComponent } from './visualComponents/user-details/user-detai
 import { UserCuestionarioDetailsComponent } from './visualComponents/user-cuestionario-details/user-cuestionario-details.component';
 import { ReenviarPagoComponent } from './visualComponents/reenviar-pago/reenviar-pago.component';
 import { CrearNoticiasComponent } from './visualComponents/crear-noticias/crear-noticias.component';
+import { NoticiasGridComponent } from './visualComponents/noticias-grid/noticias-grid.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -37,8 +38,8 @@ const routes: Routes = [
   { path: 'success', component: SuccessComponent },
   { path: 'failure', component: FailureComponent },
   { path: 'junta', component: JuntaDirectivaComponent },
-  { path: 'noticias-anjade', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'PARTICULAR' } },
-{ path: 'noticias-deportivas', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'GENERAL' } },
+  { path: 'noticias-anjade', component: NoticiasGridComponent, data: { tipoNoticia: 'PARTICULAR' } },
+{ path: 'noticias-deportivas', component: NoticiasGridComponent, data: { tipoNoticia: 'GENERAL' } },
 { path: 'noticias-incidencias', component: NoticiasAnjadeComponent, data: { tipoNoticia: 'INCIDENCIAS' } },
   { path: 'create-report', component: ReportFormComponent },
   { path: 'reports', component: ReportListComponent , canActivate: [AuthGuard] },
